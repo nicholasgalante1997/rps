@@ -1,6 +1,9 @@
 use actix_session::{config::PersistentSession, storage::RedisSessionStore, SessionMiddleware};
 use actix_web::{
-    cookie::time::Duration, get, middleware::{self,Logger}, post, web, App, HttpResponse, HttpServer, Responder,
+    cookie::time::Duration,
+    get,
+    middleware::{self, Logger},
+    post, web, App, HttpResponse, HttpServer, Responder,
 };
 use dotenv::dotenv;
 use env_logger::Env;
@@ -26,13 +29,11 @@ async fn manual_hello() -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
-    
+    env_logger::init_from_env(Env::default().default_filter_or("info"));
     let secret_key = actix_web::cookie::Key::generate();
     let redis_store = RedisSessionStore::new("redis://0.0.0.0:6379")
         .await
         .unwrap();
-
-    env_logger::init_from_env(Env::default().default_filter_or("info"));
 
     HttpServer::new(move || {
         App::new()

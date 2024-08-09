@@ -4,18 +4,16 @@ use serde::{Deserialize, Serialize};
 pub struct MinimalUser {
     pub username: String,
     pub password: String,
-    pub is_owner: bool
+    pub is_owner: bool,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct WebID {
-    pub user_reference_uri: String
+    pub user_reference_uri: String,
 }
-
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRequest {
     pub username: String,
     pub password: String,
 }
-
