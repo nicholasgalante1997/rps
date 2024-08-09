@@ -1,0 +1,227 @@
+@prefix pokemon: <https://nick.datapod.igrant.io/schemas/POKEMON/TRADING_CARD_GAME.ttl> . # Self Host Pod Server
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+pokemon: rdf:type owl:Ontology ;
+    # Descriptive Properties
+    dcterms:title "Pokemon TCG Ontology" ;
+    dcterms:description """ 
+        The Pokemon TCG Ontology aims to provide a holistic representation of the Pokemon TCG physical canon,
+        for collectors to represent in a digital format.
+    """ ;
+    vann:preferredNamespacePrefix "pokemon" ;
+    vann:preferredNamespaceURI <https://nick.datapod.igrant.io/schemas/POKEMON/TRADING_CARD_GAME.ttl> ;
+    dcterms:creator <https://nick.datapod.igrant.io/profile/card#me>;
+    dcterms:title "Pokemon Trading Card Game Ontology" ;
+    foaf:primaryTopic "Pokemon Cards" .
+
+pokemon:PokemonCard a rdfs:Class ;
+    rdfs:label "Pokémon Card"@en ;
+    rdfs:comment "A specific card from a specific set within the Pokemon Trading Card Game expansions"@en .
+
+pokemon:PokemonSet a rdfs:Class ;
+    rdfs:label "Pokémon Set"@en ;
+    rdfs:comment "A specific set of Pokémon cards form the Pokemon Trading Card Game expansions."@en .
+
+pokemon:pokemonId a rdf:Property ;
+    rdfs:label "Identifier"@en ;
+    rdfs:comment "The unique identifier of the Pokémon card."@en ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:name a rdf:Property ;
+    rdfs:label "Name" ;
+    rdfs:comment "The name of the Pokémon." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:supertype a rdf:Property ;
+    rdfs:label "Supertype" ;
+    rdfs:comment "The supertype of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:subtypes a rdf:Property ;
+    rdfs:label "Subtypes" ;
+    rdfs:comment "The subtypes of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:hp a rdf:Property ;
+    rdfs:label "HP" ;
+    rdfs:comment "The hit points of the Pokémon." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:types a rdf:Property ;
+    rdfs:label "Types" ;
+    rdfs:comment "The types of the Pokémon." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:evolvesFrom a rdf:Property ;
+    rdfs:label "Evolves From" ;
+    rdfs:comment "The Pokémon that this card evolves from." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:evolvesTo a rdf:Property ;
+    rdfs:label "Evolves To" ;
+    rdfs:comment "The Pokémon that this card evolves into." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:abilities a rdf:Property ;
+    rdfs:label "Abilities" ;
+    rdfs:comment "The abilities of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:attacks a rdf:Property ;
+    rdfs:label "Attacks" ;
+    rdfs:comment "The attacks of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:weaknesses a rdf:Property ;
+    rdfs:label "Weaknesses" ;
+    rdfs:comment "The weaknesses of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:retreatCost a rdf:Property ;
+    rdfs:label "Retreat Cost" ;
+    rdfs:comment "The retreat cost of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:convertedRetreatCost a rdf:Property ;
+    rdfs:label "Converted Retreat Cost" ;
+    rdfs:comment "The converted retreat cost of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:number a rdf:Property ;
+    rdfs:label "Number" ;
+    rdfs:comment "The number of the Pokémon card in the set." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:artist a rdf:Property ;
+    rdfs:label "Artist" ;
+    rdfs:comment "The artist of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:rarity a rdf:Property ;
+    rdfs:label "Rarity" ;
+    rdfs:comment "The rarity of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:flavorText a rdf:Property ;
+    rdfs:label "Flavor Text" ;
+    rdfs:comment "The flavor text of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:nationalPokedexNumbers a rdf:Property ;
+    rdfs:label "National Pokédex Numbers" ;
+    rdfs:comment "The national Pokédex numbers of the Pokémon." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:legalities a rdf:Property ;
+    rdfs:label "Legalities" ;
+    rdfs:comment "The legalities of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:images a rdf:Property ;
+    rdfs:label "Images" ;
+    rdfs:comment "The images of the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:tcgplayer a rdf:Property ;
+    rdfs:label "TCGPlayer" ;
+    rdfs:comment "The TCGPlayer information for the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:cardmarket a rdf:Property ;
+    rdfs:label "CardMarket" ;
+    rdfs:comment "The CardMarket information for the Pokémon card." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range rdfs:Literal .
+
+pokemon:inSet a rdf:Property ;
+    rdfs:label "In Set" ;
+    rdfs:comment "Indicates which set a Pokémon card belongs to." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range pokemon:PokemonSet .
+
+pokemon:collector a rdf:Property ;
+    rdfs:label "Collector" ;
+    rdfs:comment "Indicates which set a Pokémon card belongs to." ;
+    rdfs:domain pokemon:PokemonCard ;
+    rdfs:range foaf:Person .
+
+pokemon:setId a rdf:Property ;
+    rdfs:label "Set Identifier" ;
+    rdfs:comment "A unique identifier for a specified set" ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
+
+pokemon:name a rdf:Property ;
+    rdfs:label "Set Name" ;
+    rdfs:comment "The name of the set of pokemon cards." ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
+
+pokemon:series a rdf:Property ;
+    rdfs:label "Set Run (A Series of Sets)" ;
+    rdfs:comment "A grouping of several sets of pokemon cards, catering to the same Pokemon game scope typically." ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
+
+pokemon:printedTotal a rdf:Property ;
+    rdfs:label "Printed Total" ;
+    rdfs:comment "The printed total of cards in the set." ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range xsd:float .
+
+pokemon:total a rdf:Property ;
+    rdfs:label "Total" ;
+    rdfs:comment "The total number of cards in the set." ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range xsd:float .
+
+pokemon:releaseDate a rdf:Property ;
+    rdfs:label "Release Date" ;
+    rdfs:comment "The date the set was released" ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
+
+pokemon:updatedAt a rdf:Property ;
+    rdfs:label "Updated At" ;
+    rdfs:comment "Date this information was last updated" ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
+
+pokemon:imagesLogo a rdf:Property ;
+    rdfs:label "Images#Logo" ;
+    rdfs:comment "An image IRI of the set logo" ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
+
+pokemon:imagesSymbol a rdf:Property ;
+    rdfs:label "Images#Symbol" ;
+    rdfs:comment "An image IRI of the set symbol" ;
+    rdfs:domain pokemon:PokemonSet ;
+    rdfs:range rdfs:Literal .
