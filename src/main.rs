@@ -1,11 +1,14 @@
-use std::env;
-
 use actix_session::{config::PersistentSession, storage::RedisSessionStore, SessionMiddleware};
-use actix_web::{cookie::time::Duration, get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{
+    cookie::time::Duration, get, middleware::{self,Logger}, post, web, App, HttpResponse, HttpServer, Responder,
+};
 use dotenv::dotenv;
+use env_logger::Env;
 
 mod models;
 mod services;
+
+use services::{api, pods};
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -22,31 +25,27 @@ async fn manual_hello() -> impl Responder {
 }
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-
     dotenv().ok();
-
-    // Generate a secret key for the session,
-    // this is used to encrypt the session cookie
-    // In production, you should use a more secure method to generate this key, pulled from the environment
+    
     let secret_key = actix_web::cookie::Key::generate();
-    // let secret = env::var("RPS_SECRET_SESSION_KEY").expect("Secret Key must be set to use session storage.");
-
-    // Create a new RedisSessionStore, this is used to store the session data in Redis
-    // We may need to change this to 0.0.0.0:6379 to connect to the redis service in docker
-    let redis_store = RedisSessionStore::new("redis://127.0.0.1:6379")
+    let redis_store = RedisSessionStore::new("redis://0.0.0.0:6379")
         .await
         .unwrap();
 
-    HttpServer::new(|| {
+    env_logger::init_from_env(Env::default().default_filter_or("info"));
+
+    HttpServer::new(move || {
         App::new()
+            .wrap(Logger::default())
+            .wrap(middleware::DefaultHeaders::new().add(("X-API-RPS-Version", "0.1")))
             .wrap(
-                // Configure the session middleware
                 SessionMiddleware::builder(redis_store.clone(), secret_key.clone())
                     .cookie_secure(false)
                     .session_lifecycle(PersistentSession::default().session_ttl(Duration::hours(2)))
                     .build(),
             )
-            .service(web::scope("/api").service())
+            .service(web::scope("/api").service(api::v1::auth::login))
+            .service(pods::v1::resource_handler)
             .service(hello)
             .service(echo)
             .route("/hey", web::get().to(manual_hello))
