@@ -22,12 +22,12 @@ pub mod v1 {
         let accept_as_str = accept_as_header_value.clone().to_str().unwrap().to_string();
 
         info!("Requested Content Type: {}", &accept_as_str);
+        let resource_iri = query.iri.clone();
+        
+        println!("***");
+        println!("{}", resource_iri);
+        println!("***");
 
-        let public: Vec<String> = vec![];
-        let protected: Vec<String> = vec![];
-
-        let resource_iri = query.resource_iri.clone();
-
-        HttpResponse::Ok() // TODO Change this
+        HttpResponse::Ok() 
     }
 }

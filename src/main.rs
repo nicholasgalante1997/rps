@@ -1,9 +1,8 @@
 use actix_session::{config::PersistentSession, storage::RedisSessionStore, SessionMiddleware};
 use actix_web::{
     cookie::time::Duration,
-    get,
     middleware::{self, Logger},
-    post, web, App, HttpResponse, HttpServer, Responder,
+    web, App, HttpServer,
 };
 use dotenv::dotenv;
 use env_logger::Env;
@@ -11,21 +10,8 @@ use env_logger::Env;
 mod models;
 mod services;
 
-use services::{api, pods};
+use services::{api, openid_configuration, pods};
 
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
-
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
-}
-
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
-}
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
@@ -46,10 +32,11 @@ async fn main() -> std::io::Result<()> {
                     .build(),
             )
             .service(web::scope("/api").service(api::v1::auth::login))
+            .service(
+                web::scope("/.well-known")
+                    .service(openid_configuration::v1::openid_configuration_post_handler),
+            )
             .service(pods::v1::resource_handler)
-            .service(hello)
-            .service(echo)
-            .route("/hey", web::get().to(manual_hello))
     })
     .bind(("0.0.0.0", 8080))?
     .run()
